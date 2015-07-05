@@ -1,0 +1,56 @@
+{
+  "name": "react-tree-pane",
+  "description": "React tree-pane component",
+  "main": "lib/TreePane.js",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomkp/react-tree-pane"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomkp/react-tree-pane"
+  },
+  "homepage": "https://github.com/tomkp/react-tree-pane",
+  "author": "tomkp <tom@tomkp.com>",
+  "keywords": [
+    "react",
+    "react-component",
+    "tree-pane",
+    "react-tree-pane",
+    "es6"
+  ],
+  "dependencies": {
+    "react": "^0.13.1",
+    "react-vendor-prefix": "0.0.1"
+  },
+  "devDependencies": {
+    "babel": "^5.5.8",
+    "babel-eslint": "^3.1.9",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "coveralls": "^2.11.2",
+    "expect.js": "^0.3.1",
+    "express": "^4.12.2",
+    "mochify": "^2.6.0",
+    "mochify-istanbul": "^2.1.1",
+    "react-tools": "^0.13.0-rc1"
+  },
+  "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile",
+    "test": "mochify -R spec",
+    "test:watch": "mochify -R spec --watch",
+    "test:coverage": "node cover.js && cat lcov.info | coveralls && rm lcov.info",
+    "demo": "browserify demo/Example.js -t -o demo/bundle.js",
+    "demo:publish": "browserify demo/Example.js -t -o demo/bundle.js && surge demo astonishing-dinosaurs.surge.sh",
+    "release:patch": "npm test && npm run compile && npm version patch && git push && npm publish"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify"
+      ]
+    ]
+  }
+}
