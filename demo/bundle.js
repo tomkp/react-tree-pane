@@ -7,16 +7,14 @@ var React = _interopRequire(require("react"));
 
 var TreePane = _interopRequire(require("../lib/TreePane"));
 
-var CellX = React.createClass({
-    displayName: "CellX",
+var CustomCellRenderer = React.createClass({
+    displayName: "CustomCellRenderer",
 
     render: function render() {
         return React.createElement(
             "span",
             null,
-            "[",
-            this.props.model.name,
-            "]"
+            this.props.model.name
         );
     }
 });
@@ -34,7 +32,7 @@ var Example = React.createClass({
         return React.createElement(
             TreePane,
             { model: model },
-            React.createElement(CellX, null)
+            React.createElement(CustomCellRenderer, null)
         );
     }
 

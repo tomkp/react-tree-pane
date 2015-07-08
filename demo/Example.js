@@ -2,7 +2,7 @@ import React from 'react';
 import TreePane from '../lib/TreePane';
 
 
-var CellX = React.createClass({
+var CustomCellRenderer = React.createClass({
     render() {
         return <span>{this.props.model.name}</span>
     }
@@ -34,7 +34,7 @@ var Example = React.createClass({
 
         return (
             <TreePane model={model}>
-                <CellX />
+                <CustomCellRenderer />
             </TreePane>
         );
     }
