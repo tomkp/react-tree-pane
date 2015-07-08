@@ -6,8 +6,16 @@ import TreePane from '../src/TreePane';
 
 describe('TreePane', function () {
 
+
+    const model = {
+        name: 'Tom',
+        children: [
+            { name: 'Alice'}, { name: 'Jacob'}
+        ]
+    };
+
     const treePane = TestUtils.renderIntoDocument(
-        <TreePane />
+        <TreePane model={model} />
     );
 
 
@@ -25,6 +33,16 @@ class Asserter {
     constructor(treePane) {
         this.component = TestUtils.findRenderedDOMComponentWithClass(treePane, 'TreePane');
         this.treePane = treePane;
+    }
+
+
+    assertNumberOfChildren() {
+        //expect(this.component.props.children.length).to.equal(3);
+    }
+
+
+    findChildren() {
+        //return TestUtils.scryRenderedDOMComponentsWithClass(this.component, 'Node');
     }
 
 }
