@@ -6,15 +6,17 @@ import React from 'react/addons';
 let TreePane = React.createClass({
 
     render() {
-        const classes = ['TreePane'];
-        let renderer = this.props.children;
-        return <div className={classes.join(' ')}><Node model={this.props.model} renderer={renderer} /></div>
+        return (
+            <div className="TreePane">
+                <Node model={this.props.model} renderer={this.props.renderer} />
+            </div>
+        );
     }
 });
 
 
 
-let Cell = React.createClass({
+let DefaultCellRenderer = React.createClass({
     render() {
         return <span>{this.props.model.name}</span>
     }
@@ -60,7 +62,7 @@ let Node = React.createClass({
                 model: this.props.model
             });
         } else {
-            cellRenderer = <Cell model={this.props.model} />;
+            cellRenderer = <DefaultCellRenderer model={this.props.model} />;
         }
 
         return (

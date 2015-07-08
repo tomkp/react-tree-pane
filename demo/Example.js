@@ -33,9 +33,7 @@ var Example = React.createClass({
         };
 
         return (
-            <TreePane model={model}>
-                <CustomCellRenderer />
-            </TreePane>
+            <TreePane model={model} cellRenderer={<CustomCellRenderer />} />
         );
     }
 

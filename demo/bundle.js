@@ -29,11 +29,7 @@ var Example = React.createClass({
             children: [{ name: "react-tree-pane", children: [{ name: "demo", children: [{ name: "bundle.js" }, { name: "Example.js" }] }, { name: "src", children: [{ name: "TreePane.js" }] }, { name: "test", children: [{ name: "TreePane-test.js" }] }, { name: "package.json" }] }]
         };
 
-        return React.createElement(
-            TreePane,
-            { model: model },
-            React.createElement(CustomCellRenderer, null)
-        );
+        return React.createElement(TreePane, { model: model, cellRenderer: React.createElement(CustomCellRenderer, null) });
     }
 
 });
@@ -59,14 +55,12 @@ var TreePane = _reactAddons2["default"].createClass({
     displayName: "TreePane",
 
     render: function render() {
-        var classes = ["TreePane"];
-        var renderer = this.props.children;
-        return _reactAddons2["default"].createElement("div", { className: classes.join(" ") }, _reactAddons2["default"].createElement(Node, { model: this.props.model, renderer: renderer }));
+        return _reactAddons2["default"].createElement("div", { className: "TreePane" }, _reactAddons2["default"].createElement(Node, { model: this.props.model, renderer: this.props.renderer }));
     }
 });
 
-var Cell = _reactAddons2["default"].createClass({
-    displayName: "Cell",
+var DefaultCellRenderer = _reactAddons2["default"].createClass({
+    displayName: "DefaultCellRenderer",
 
     render: function render() {
         return _reactAddons2["default"].createElement("span", null, this.props.model.name);
@@ -109,7 +103,7 @@ var Node = _reactAddons2["default"].createClass({
                 model: this.props.model
             });
         } else {
-            cellRenderer = _reactAddons2["default"].createElement(Cell, { model: this.props.model });
+            cellRenderer = _reactAddons2["default"].createElement(DefaultCellRenderer, { model: this.props.model });
         }
 
         return _reactAddons2["default"].createElement("div", { className: "Node" }, _reactAddons2["default"].createElement("div", { onClick: this.toggle, className: classes.join(" ") }, cellRenderer), childNodes);
