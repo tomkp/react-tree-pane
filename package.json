@@ -17,6 +17,7 @@
     "react",
     "react-component",
     "tree-pane",
+    "tree-view",
     "react-tree-pane",
     "es6"
   ],
