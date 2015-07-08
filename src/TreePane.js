@@ -1,10 +1,9 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 
 
-let TreePane = React.createClass({
-
+export default class TreePane extends React.Component {
     render() {
         return (
             <div className="TreePane">
@@ -12,15 +11,15 @@ let TreePane = React.createClass({
             </div>
         );
     }
-});
+}
 
 
 
-let DefaultCellRenderer = React.createClass({
+class DefaultCellRenderer extends React.Component {
     render() {
         return <span>{this.props.model.name}</span>
     }
-});
+}
 
 
 let Node = React.createClass({
@@ -76,4 +75,4 @@ let Node = React.createClass({
     }
 });
 
-export default TreePane;
+
