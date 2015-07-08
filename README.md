@@ -2,6 +2,9 @@
 
 Tree-Pane component built with [React](http://facebook.github.io/react)
 
+[![Build Status](https://img.shields.io/travis/tomkp/react-tree-pane/master.svg?style=flat-square)](https://travis-ci.org/tomkp/react-tree-pane)
+[![Coverage Status](https://img.shields.io/coveralls/tomkp/react-tree-pane/master.svg?style=flat-square)](https://coveralls.io/r/tomkp/react-tree-pane)
+
 Check out the [demo](http://astonishing-dinosaurs.surge.sh/)
 
 
@@ -10,5 +13,3 @@ Check out the [demo](http://astonishing-dinosaurs.surge.sh/)
 ```
 
 
-[![Build Status](https://img.shields.io/travis/tomkp/react-tree-pane/master.svg?style=flat-square)](https://travis-ci.org/tomkp/react-tree-pane)
-[![Coverage Status](https://img.shields.io/coveralls/tomkp/react-tree-pane/master.svg?style=flat-square)](https://coveralls.io/r/tomkp/react-tree-pane)
