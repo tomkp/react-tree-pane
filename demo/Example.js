@@ -2,6 +2,27 @@ import React from 'react';
 import TreePane from '../lib/TreePane';
 
 
+const model = {
+    name: 'Default',
+    children: [
+        { name: 'react-tree-pane', children:[
+            {name: 'demo', children: [
+                {name: 'bundle.js'},
+                {name: 'Example.js'}
+            ]},
+            {name: 'src', children: [
+                {name: 'TreePane.js'}
+            ]},
+            {name: 'test', children: [
+                {name: 'TreePane-test.js'}
+            ]},
+            {name: 'package.json'}
+        ]}
+    ]
+};
+
+
+
 var CustomCellRenderer = React.createClass({
     render() {
         return <span>{this.props.model.name}</span>
@@ -9,34 +30,12 @@ var CustomCellRenderer = React.createClass({
 });
 
 
+
 var Example = React.createClass({
-
     render: function() {
-
-        const model = {
-            name: 'Default',
-            children: [
-                { name: 'react-tree-pane', children:[
-                    {name: 'demo', children: [
-                        {name: 'bundle.js'},
-                        {name: 'Example.js'}
-                    ]},
-                    {name: 'src', children: [
-                        {name: 'TreePane.js'}
-                    ]},
-                    {name: 'test', children: [
-                        {name: 'TreePane-test.js'}
-                    ]},
-                    {name: 'package.json'}
-                ]}
-            ]
-        };
-
-        return (
-            <TreePane model={model} cellRenderer={<CustomCellRenderer />} />
-        );
+        return <TreePane model={model} cellRenderer={<CustomCellRenderer />} />
     }
-
 });
+
 
 React.render(<Example />, document.body);

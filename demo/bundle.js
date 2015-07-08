@@ -7,6 +7,11 @@ var React = _interopRequire(require("react"));
 
 var TreePane = _interopRequire(require("../lib/TreePane"));
 
+var model = {
+    name: "Default",
+    children: [{ name: "react-tree-pane", children: [{ name: "demo", children: [{ name: "bundle.js" }, { name: "Example.js" }] }, { name: "src", children: [{ name: "TreePane.js" }] }, { name: "test", children: [{ name: "TreePane-test.js" }] }, { name: "package.json" }] }]
+};
+
 var CustomCellRenderer = React.createClass({
     displayName: "CustomCellRenderer",
 
@@ -23,15 +28,8 @@ var Example = React.createClass({
     displayName: "Example",
 
     render: function render() {
-
-        var model = {
-            name: "Default",
-            children: [{ name: "react-tree-pane", children: [{ name: "demo", children: [{ name: "bundle.js" }, { name: "Example.js" }] }, { name: "src", children: [{ name: "TreePane.js" }] }, { name: "test", children: [{ name: "TreePane-test.js" }] }, { name: "package.json" }] }]
-        };
-
         return React.createElement(TreePane, { model: model, cellRenderer: React.createElement(CustomCellRenderer, null) });
     }
-
 });
 
 React.render(React.createElement(Example, null), document.body);
