@@ -7,7 +7,6 @@ import TreePane from '../src/TreePane';
 describe('TreePane', function () {
 
 
-
     const model = {
         name: 'Default',
         children: [
@@ -35,8 +34,8 @@ describe('TreePane', function () {
         React.render(<TreePane model={model} />, element);
 
         new TreePaneAsserter(element)
-            .findNode().assertValue('Default').assertIsExpanded().assertNumberOfChildren(1).assertChildren('react-tree-pane')
-                .findChildNode('react-tree-pane').assertIsExpanded().assertNumberOfChildren(4).assertChildren('demo', 'src', 'test')
+            .findRootNode().assertValue('Default').assertIsExpanded().assertNumberOfChildren(1).assertChildren('react-tree-pane')
+                .findChildNode('react-tree-pane').assertIsExpanded().assertNumberOfChildren(4).assertChildren('demo', 'src', 'test', 'package.json')
                     .findChildNode('demo').assertIsExpanded().assertNumberOfChildren(2).end()
                     .findChildNode('src').assertIsExpanded().assertNumberOfChildren(1).end()
                     .findChildNode('test').assertIsExpanded().assertNumberOfChildren(1).end()
@@ -45,17 +44,16 @@ describe('TreePane', function () {
     });
 
 
+
     it('should collapse whole tree', function () {
 
         var element = document.createElement('div');
         React.render(<TreePane model={model} />, element);
 
         new TreePaneAsserter(element)
-            .findNode().assertValue('Default').assertIsExpanded().collapse().end()
-            .findNode().assertValue('Default').assertIsCollapsed()
+            .findRootNode().assertValue('Default').assertIsExpanded().collapse().end()
+            .findRootNode().assertValue('Default').assertIsCollapsed()
         ;
-
-        console.info('', element.innerHTML);
     });
 
 });
@@ -68,16 +66,16 @@ class TreePaneAsserter {
 
     constructor(element) {
         this.element = element;
-        //console.info('element', element.innerHTML);
     }
 
-    findNode() {
+    findRootNode() {
         let treePane = this.element.children[0];
         let childNode = treePane.children[0];
         return new NodeAsserter(this, childNode);
     }
-
 }
+
+
 
 class NodeAsserter {
 
@@ -88,13 +86,8 @@ class NodeAsserter {
         this.toggle = node.children[0];
     }
 
-    findCell() {
-        //todo
-        return new CellAsserter(this);
-    }
-
     assertValue(expected) {
-        expect(this.node.children[0].children[0].innerHTML).to.contain(expected);
+        expect(this.findValue(this.node)).to.contain(expected);
         return this;
     }
 
@@ -128,16 +121,25 @@ class NodeAsserter {
         return this;
     }
 
-    assertChildren(expected) {
-        //todo
+    assertChildren(...expected) {
+        let names = this.findChildren().map((child) => { return this.findValue(child); });
+        expect(names).to.eql(expected);
         return this;
     }
 
     findChildNode(value) {
-        var children = this.filterChildren((child) => {
-            return !!(child.className === 'Node' && child.children[0].children[0].innerHTML === value);
+        let children = this.filterChildren((child) => {
+            return !!(child.className === 'Node' && this.findValue(child) === value);
         });
         return new NodeAsserter(this, children[0]);
+    }
+
+    end() {
+        return this.parent;
+    }
+
+    findValue(child) {
+        return child.children[0].children[0].innerHTML;
     }
 
     findChildren() {
@@ -149,25 +151,6 @@ class NodeAsserter {
     filterChildren(filter) {
         return [].slice.call(this.node.children).filter(filter);
     }
-
-    end() {
-        return this.parent;
-    }
 }
 
-
-class CellAsserter {
-    constructor(parent) {
-        this.parent = parent;
-    }
-
-    assertValue() {
-        //todo
-        return this;
-    }
-
-    end() {
-        return this.parent;
-    }
-}
 
