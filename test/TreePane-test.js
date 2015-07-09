@@ -30,10 +30,9 @@ describe('TreePane', function () {
 
     it('should render the whole tree expanded', function () {
 
-        var element = document.createElement('div');
-        React.render(<TreePane model={model} />, element);
+        var treePane = <TreePane model={model}/>;
 
-        new TreePaneAsserter(element)
+        new TreePaneAsserter(treePane)
             .findRootNode().assertValue('Default').assertIsExpanded().assertNumberOfChildren(1).assertChildren('react-tree-pane')
                 .findChildNode('react-tree-pane').assertIsExpanded().assertNumberOfChildren(4).assertChildren('demo', 'src', 'test', 'package.json')
                     .findChildNode('demo').assertIsExpanded().assertNumberOfChildren(2).end()
@@ -47,10 +46,9 @@ describe('TreePane', function () {
 
     it('should collapse whole tree', function () {
 
-        var element = document.createElement('div');
-        React.render(<TreePane model={model} />, element);
+        var treePane = <TreePane model={model}/>;
 
-        new TreePaneAsserter(element)
+        new TreePaneAsserter(treePane)
             .findRootNode().assertValue('Default').assertIsExpanded().collapse().end()
             .findRootNode().assertValue('Default').assertIsCollapsed()
         ;
@@ -64,13 +62,13 @@ describe('TreePane', function () {
 
 class TreePaneAsserter {
 
-    constructor(element) {
-        this.element = element;
+    constructor(treePane) {
+        this.element = document.createElement('div');
+        React.render(treePane, this.element);
     }
 
     findRootNode() {
-        let treePane = this.element.children[0];
-        let childNode = treePane.children[0];
+        let childNode = this.element.children[0].children[0];
         return new NodeAsserter(this, childNode);
     }
 }
