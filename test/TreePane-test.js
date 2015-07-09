@@ -28,25 +28,36 @@ describe('TreePane', function () {
     };
 
 
-    const treePane = TestUtils.renderIntoDocument(
-        <TreePane model={model} />
-    );
-
-
-    it('should render the tree pane', function () {
-        new TreePaneAsserter(treePane);
-    });
-
 
     it('should render the whole tree expanded', function () {
-        new TreePaneAsserter(treePane)
-            .findNode().assertValue('Default').assertIsExpanded().assertNumberOfChildren(1)
-                .findChildNode('react-tree-pane').assertIsExpanded().assertNumberOfChildren(3)
+
+        var element = document.createElement('div');
+        React.render(<TreePane model={model} />, element);
+
+        new TreePaneAsserter(element)
+            .findNode().assertValue('Default').assertIsExpanded().assertNumberOfChildren(1).assertChildren('react-tree-pane')
+                .findChildNode('react-tree-pane').assertIsExpanded().assertNumberOfChildren(4).assertChildren('demo', 'src', 'test')
                     .findChildNode('demo').assertIsExpanded().assertNumberOfChildren(2).end()
                     .findChildNode('src').assertIsExpanded().assertNumberOfChildren(1).end()
                     .findChildNode('test').assertIsExpanded().assertNumberOfChildren(1).end()
+                    .findChildNode('package.json').assertNumberOfChildren(0).end() // isLeaf
         ;
     });
+
+
+    it('should collapse whole tree', function () {
+
+        var element = document.createElement('div');
+        React.render(<TreePane model={model} />, element);
+
+        new TreePaneAsserter(element)
+            .findNode().assertValue('Default').assertIsExpanded().collapse().end()
+            .findNode().assertValue('Default').assertIsCollapsed()
+        ;
+
+        console.info('', element.innerHTML);
+    });
+
 });
 
 
@@ -55,35 +66,108 @@ describe('TreePane', function () {
 
 class TreePaneAsserter {
 
-    constructor(treePane) {
-        this.treePane = treePane;
+    constructor(element) {
+        this.element = element;
+        //console.info('element', element.innerHTML);
     }
 
     findNode() {
-        return new NodeAsserter(this);
+        let treePane = this.element.children[0];
+        let childNode = treePane.children[0];
+        return new NodeAsserter(this, childNode);
     }
 
 }
 
 class NodeAsserter {
-    constructor(parent) {
+
+    constructor(parent, node) {
+        console.info('NodeAsserter', node.dataset.reactid);
         this.parent = parent;
+        this.node = node;
+        this.toggle = node.children[0];
     }
 
-    findCell() {return new CellAsserter(this) }
-    assertValue() { return this; }
-    assertIsExpanded() { return this; }
-    assertIsCollapsed() { return this; }
-    assertNumberOfChildren(expected) { return this; }
-    findChildNode(value) { return new NodeAsserter(this) }
-    end() { return this.parent; }
+    findCell() {
+        //todo
+        return new CellAsserter(this);
+    }
+
+    assertValue(expected) {
+        expect(this.node.children[0].children[0].innerHTML).to.contain(expected);
+        return this;
+    }
+
+    expand() {
+        this.assertIsCollapsed();
+        TestUtils.Simulate.click(this.toggle);
+        this.assertIsExpanded();
+        return this;
+    }
+
+    collapse() {
+        this.assertIsExpanded();
+        TestUtils.Simulate.click(this.toggle);
+        this.assertIsCollapsed();
+        return this;
+    }
+
+    assertIsExpanded() {
+        expect(this.toggle.className).to.contain('collapse');
+        return this;
+    }
+
+    assertIsCollapsed() {
+        expect(this.toggle.className).to.contain('expand');
+        return this;
+    }
+
+    assertNumberOfChildren(expected) {
+        let children = this.findChildren();
+        expect(children.length).to.equal(expected);
+        return this;
+    }
+
+    assertChildren(expected) {
+        //todo
+        return this;
+    }
+
+    findChildNode(value) {
+        var children = this.filterChildren((child) => {
+            return !!(child.className === 'Node' && child.children[0].children[0].innerHTML === value);
+        });
+        return new NodeAsserter(this, children[0]);
+    }
+
+    findChildren() {
+        return this.filterChildren((child) => {
+            return child.className === 'Node';
+        });
+    }
+
+    filterChildren(filter) {
+        return [].slice.call(this.node.children).filter(filter);
+    }
+
+    end() {
+        return this.parent;
+    }
 }
+
 
 class CellAsserter {
     constructor(parent) {
         this.parent = parent;
     }
-    assertValue() { return this; }
-    end() { return this.parent; }
+
+    assertValue() {
+        //todo
+        return this;
+    }
+
+    end() {
+        return this.parent;
+    }
 }
 
