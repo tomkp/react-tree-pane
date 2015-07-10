@@ -1,7 +1,8 @@
-import expect from 'expect.js';
 import React from 'react/addons';
 const { TestUtils } = React.addons;
 import TreePane from '../src/TreePane';
+import chai from 'chai';
+const expect = chai.expect;
 
 
 describe('TreePane', function () {
