@@ -17,7 +17,7 @@ Check out the [demo](http://astonishing-dinosaurs.surge.sh/)
 
 ```js
    
-   const model = {
+   var model = {
        name: 'Default',
        children: [
            { name: 'react-tree-pane', children:[
