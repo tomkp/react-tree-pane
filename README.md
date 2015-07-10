@@ -15,7 +15,7 @@ Check out the [demo](http://astonishing-dinosaurs.surge.sh/)
 
 ### Example
 
-```html
+```js
    
    const model = {
        name: 'Default',
