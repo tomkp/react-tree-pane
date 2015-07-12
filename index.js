@@ -1,3 +1,3 @@
-import TreePane from './src/TreePane';
+import TreePane from './lib/TreePane';
 
 module.exports = TreePane;
