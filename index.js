@@ -1,3 +1,3 @@
-import TreePane from './lib/TreePane';
+var TreePane = require('./lib/TreePane');
 
 module.exports = TreePane;
