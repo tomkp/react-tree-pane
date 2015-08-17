@@ -13,7 +13,7 @@ var _libTreePane2 = _interopRequireDefault(_libTreePane);
 
 var model = {
     name: 'Default',
-    children: [{ name: 'react-tree-pane', children: [{ name: 'demo', children: [{ name: 'bundle.js' }, { name: 'Example.js' }] }, { name: 'src', children: [{ name: 'TreePane.js' }] }, { name: 'test', children: [{ name: 'TreePane-test.js' }] }, { name: 'package.json' }] }]
+    children: [{ name: 'react-tree-pane', children: [{ name: 'demo', children: [{ name: 'bundle.js' }, { name: 'Example.js' }] }, { name: 'src', children: [{ name: 'TreePane.js' }] }, { name: 'test', children: [{ name: 'tree-pane-tests.js' }] }, { name: 'package.json' }] }]
 };
 
 var CustomCellRenderer = _react2['default'].createClass({

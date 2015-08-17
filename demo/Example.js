@@ -14,7 +14,7 @@ const model = {
                 {name: 'TreePane.js'}
             ]},
             {name: 'test', children: [
-                {name: 'TreePane-test.js'}
+                {name: 'tree-pane-tests.js'}
             ]},
             {name: 'package.json'}
         ]}
