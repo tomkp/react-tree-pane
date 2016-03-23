@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TreePane from '../lib/TreePane';
 
 
@@ -38,4 +39,4 @@ var Example = React.createClass({
 });
 
 
-React.render(<Example />, document.body);
+ReactDOM.render(<Example />, document.getElementById("container"));

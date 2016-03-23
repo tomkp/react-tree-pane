@@ -1,6 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 import chai from 'chai';
-const { TestUtils } = React.addons;
 const expect = chai.expect;
 import NodeAsserter from './NodeAsserter';
 
@@ -9,7 +10,7 @@ export default class TreePaneAsserter {
 
     constructor(jsx) {
         this.element = document.createElement('div');
-        React.render(jsx, this.element);
+        ReactDOM.render(jsx, this.element);
     }
 
     findRootNode() {

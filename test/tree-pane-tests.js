@@ -1,5 +1,7 @@
-import React from 'react/addons';
-const { TestUtils } = React.addons;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+
 import TreePane from '../src/TreePane';
 import TreePaneAsserter from './assertions/TreePaneAsserter'
 import NodeAsserter from './assertions/NodeAsserter'

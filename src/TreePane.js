@@ -1,16 +1,15 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 
-export default class TreePane extends React.Component {
-    render() {
-        return (
-            <div className="TreePane">
-                <Node model={this.props.model} renderer={this.props.renderer} />
-            </div>
-        );
-    }
+export default ({model, renderer}) => {
+    return (
+        <div className="TreePane">
+            <Node model={model} renderer={renderer} />
+        </div>
+    )
 }
 
 

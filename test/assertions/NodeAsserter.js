@@ -1,6 +1,7 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 import chai from 'chai';
-const { TestUtils } = React.addons;
 const expect = chai.expect;
 
 
