@@ -1,7 +1,8 @@
+'use strict';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TreePane from '../lib/TreePane';
-
 
 const model = {
     name: 'Default',
@@ -23,20 +24,7 @@ const model = {
 };
 
 
+const CustomCellRenderer = ({model}) => { return <span>{model.name}</span> };
+const Example = ({model}) => { return <TreePane model={model} cellRenderer={<CustomCellRenderer />} /> };
 
-var CustomCellRenderer = React.createClass({
-    render() {
-        return <span>{this.props.model.name}</span>
-    }
-});
-
-
-
-var Example = React.createClass({
-    render: function() {
-        return <TreePane model={model} cellRenderer={<CustomCellRenderer />} />
-    }
-});
-
-
-ReactDOM.render(<Example />, document.getElementById("container"));
+ReactDOM.render(<Example model={model} />, document.getElementById("container"));
