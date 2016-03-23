@@ -13,28 +13,20 @@ export default ({model, renderer}) => {
 }
 
 
-
-class DefaultCellRenderer extends React.Component {
-    render() {
-        return <span>{this.props.model.name}</span>
-    }
-}
-
+const DefaultCellRenderer = ({model}) => {return <span>{this.props.model.name}</span> }
+   
 
 let Node = React.createClass({
-
 
     toggle() {
         this.setState({expanded: !this.state.expanded});
     },
-
 
     getInitialState() {
         return {
             expanded: true
         };
     },
-
 
     render() {
         let childNodes = [];
@@ -51,7 +43,6 @@ let Node = React.createClass({
             classes.push('toggle');
             classes.push(this.state.expanded?'collapse':'expand');
         }
-
 
         let cellRenderer;
 
